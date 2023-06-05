@@ -3,11 +3,16 @@ using UnityEngine.InputSystem;
 
 public class Sword : MonoBehaviour
 {
+    [SerializeField] private GameObject _slashEffectPrefab;
+    [SerializeField] private Transform _slashEffectParent;
+    
     private PlayerControls _playerControls;
     private Animator _animator;
     private PlayerController _playerController;
     private ActiveWeapon _activeWeapon;
     private Camera _mainCam;
+    private bool _isSwingingUp;
+    private GameObject _slashEffect;
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
 
     private void Awake()
@@ -32,6 +37,13 @@ public class Sword : MonoBehaviour
     private void Attack(InputAction.CallbackContext context)
     {
         _animator.SetTrigger(AttackTrigger);
+        _slashEffect = Instantiate(_slashEffectPrefab, _slashEffectParent);
+        if (_isSwingingUp)
+        {
+            _slashEffect.transform.Rotate(180,0,0);
+        }
+
+        _isSwingingUp = !_isSwingingUp;
     }
 
     private void Update()
