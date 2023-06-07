@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
 
+    public static PlayerController Instance;
     private PlayerControls _playerControls;
     private Vector2 _movement;
     private Rigidbody2D _rb;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         _playerControls = new PlayerControls();
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
