@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 3510406683522762037}
   - component: {fileID: 1226094935373101557}
   - component: {fileID: 9222679829474902302}
+  - component: {fileID: 6992717141637933580}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -119,7 +120,7 @@ Transform:
   m_Children:
   - {fileID: 7627800161209294623}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &832292488136899183
 SpriteRenderer:
@@ -260,3 +261,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 2
+--- !u!114 &6992717141637933580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735450314802072912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3dd01fba244d4e9805fcfe2db19aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealth: 3
