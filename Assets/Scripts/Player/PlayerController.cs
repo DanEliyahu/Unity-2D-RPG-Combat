@@ -1,8 +1,16 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
+    
+    [Header("Dash")]
+    [SerializeField] private float _dashSpeedMultiplier = 3f;
+    [SerializeField] private float _dashDuration = 0.2f;
+    [SerializeField] private float _dashCooldown = 0.3f;
+    [SerializeField] private TrailRenderer _trailRenderer;
 
     public static PlayerController Instance;
     private PlayerControls _playerControls;
@@ -11,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Camera _mainCam;
+    private bool _canDash = true;
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
 
     private void Awake()
@@ -25,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _mainCam = Camera.main;
+        _playerControls.Combat.Dash.performed += Dash;
     }
 
     private void OnEnable()
@@ -60,5 +70,24 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         _rb.MovePosition(_rb.position + _movement * (_moveSpeed * Time.fixedDeltaTime));
+    }
+
+    private void Dash(InputAction.CallbackContext context)
+    {
+        if (!_canDash) return;
+
+        _canDash = false;
+        _moveSpeed *= _dashSpeedMultiplier;
+        _trailRenderer.emitting = true;
+        StartCoroutine(DashCDRoutine());
+    }
+
+    private IEnumerator DashCDRoutine()
+    {
+        yield return new WaitForSeconds(_dashDuration);
+        _moveSpeed /= _dashSpeedMultiplier;
+        _trailRenderer.emitting = false;
+        yield return new WaitForSeconds(_dashCooldown);
+        _canDash = true;
     }
 }
