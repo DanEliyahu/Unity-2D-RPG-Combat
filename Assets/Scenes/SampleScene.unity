@@ -829,6 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3812276e0af24a148feb541e74b2538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackCooldown: 0.5
   _slashEffectPrefab: {fileID: 1290848772240631572, guid: 8bdd4b882ec37c569bb6acf6728de68e, type: 3}
   _slashEffectParent: {fileID: 373961790}
   _weaponCollider: {fileID: 384339214}

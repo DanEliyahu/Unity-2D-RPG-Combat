@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Sword : MonoBehaviour
 {
+    [SerializeField] private float _attackCooldown = 0.5f;
     [SerializeField] private GameObject _slashEffectPrefab;
     [SerializeField] private Transform _slashEffectParent;
     [SerializeField] private DamageSource _weaponCollider;
@@ -12,7 +14,7 @@ public class Sword : MonoBehaviour
     private PlayerController _playerController;
     private ActiveWeapon _activeWeapon;
     private Camera _mainCam;
-    private bool _isSwingingUp;
+    private bool _isSwingingUp, _attackButtonDown, _isAttacking;
     private GameObject _slashEffect;
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
 
@@ -31,12 +33,32 @@ public class Sword : MonoBehaviour
 
     private void Start()
     {
-        _playerControls.Combat.Attack.started += Attack;
+        _playerControls.Combat.Attack.started += StartAttacking;
+        _playerControls.Combat.Attack.canceled += StopAttacking;
         _mainCam = Camera.main;
     }
 
-    private void Attack(InputAction.CallbackContext context)
+    private void StartAttacking(InputAction.CallbackContext context)
     {
+        _attackButtonDown = true;
+    }
+
+    private void StopAttacking(InputAction.CallbackContext context)
+    {
+        _attackButtonDown = false;
+    }
+    
+    private void Update()
+    {
+        MouseFollowWithOffset();
+        Attack();
+    }
+
+    private void Attack()
+    {
+        if (!_attackButtonDown || _isAttacking) return;
+        
+        _isAttacking = true;
         _animator.SetTrigger(AttackTrigger);
         _weaponCollider.gameObject.SetActive(true);
         _slashEffect = Instantiate(_slashEffectPrefab, _slashEffectParent);
@@ -46,6 +68,13 @@ public class Sword : MonoBehaviour
         }
 
         _isSwingingUp = !_isSwingingUp;
+        StartCoroutine(AttackCDRoutine());
+    }
+
+    private IEnumerator AttackCDRoutine()
+    {
+        yield return new WaitForSeconds(_attackCooldown);
+        _isAttacking = false;
     }
 
     public void DoneAttackingAnimEvent()
@@ -53,10 +82,6 @@ public class Sword : MonoBehaviour
         _weaponCollider.gameObject.SetActive(false);
     }
 
-    private void Update()
-    {
-        MouseFollowWithOffset();
-    }
 
     private void MouseFollowWithOffset()
     {
