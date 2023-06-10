@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5f;
     
     [Header("Dash")]
-    [SerializeField] private float _dashSpeedMultiplier = 3f;
+    [SerializeField] private float _dashSpeed = 20f;
     [SerializeField] private float _dashDuration = 0.2f;
     [SerializeField] private float _dashCooldown = 0.3f;
     [SerializeField] private TrailRenderer _trailRenderer;
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Camera _mainCam;
     private bool _canDash = true;
+    private float _startingMoveSpeed;
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
 
     private void Awake()
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _startingMoveSpeed = _moveSpeed;
     }
 
     private void Start()
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if (!_canDash) return;
 
         _canDash = false;
-        _moveSpeed *= _dashSpeedMultiplier;
+        _moveSpeed = _dashSpeed;
         _trailRenderer.emitting = true;
         StartCoroutine(DashCDRoutine());
     }
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DashCDRoutine()
     {
         yield return new WaitForSeconds(_dashDuration);
-        _moveSpeed /= _dashSpeedMultiplier;
+        _moveSpeed = _startingMoveSpeed;
         _trailRenderer.emitting = false;
         yield return new WaitForSeconds(_dashCooldown);
         _canDash = true;
