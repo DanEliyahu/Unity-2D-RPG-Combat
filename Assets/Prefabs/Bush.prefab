@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2747453172449767636}
   - component: {fileID: 8331217501094232854}
   - component: {fileID: 7613974903649981269}
+  - component: {fileID: 7963793595726240691}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8331217501094232854
 SpriteRenderer:
@@ -120,3 +121,16 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &7963793595726240691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116217876707233054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e2cee4f752522c4a6c38e273b4d9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyVFX: {fileID: 519869023049683577, guid: 7e099b156a89a05c69d4368ac995afd7, type: 3}
