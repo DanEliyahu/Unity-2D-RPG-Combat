@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     [SerializeField] private float _moveSpeed = 5f;
     
@@ -11,8 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dashDuration = 0.2f;
     [SerializeField] private float _dashCooldown = 0.3f;
     [SerializeField] private TrailRenderer _trailRenderer;
-
-    public static PlayerController Instance;
+    
     private PlayerControls _playerControls;
     private Vector2 _movement;
     private Rigidbody2D _rb;
@@ -23,9 +22,10 @@ public class PlayerController : MonoBehaviour
     private float _startingMoveSpeed;
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
 
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
+        
         _playerControls = new PlayerControls();
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
