@@ -13,7 +13,6 @@ public class Sword : MonoBehaviour
     private Animator _animator;
     private PlayerController _playerController;
     private ActiveWeapon _activeWeapon;
-    private Camera _mainCam;
     private bool _isSwingingUp, _attackButtonDown, _isAttacking;
     private GameObject _slashEffect;
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
@@ -35,7 +34,6 @@ public class Sword : MonoBehaviour
     {
         _playerControls.Combat.Attack.started += StartAttacking;
         _playerControls.Combat.Attack.canceled += StopAttacking;
-        _mainCam = Camera.main;
     }
 
     private void StartAttacking(InputAction.CallbackContext context)
@@ -85,10 +83,8 @@ public class Sword : MonoBehaviour
 
     private void MouseFollowWithOffset()
     {
-        if (!_mainCam) return;
-
         var mousePos = Input.mousePosition;
-        var mouseWorldPosition = _mainCam.ScreenToWorldPoint(mousePos);
+        var mouseWorldPosition = CameraController.Instance.MainCam.ScreenToWorldPoint(mousePos);
         
         var zRotation = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         var yRotation = mouseWorldPosition.x < _playerController.transform.position.x ? 180 : 0;

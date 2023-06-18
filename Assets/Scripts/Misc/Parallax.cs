@@ -4,14 +4,8 @@ public class Parallax : MonoBehaviour
 {
     [SerializeField] private float _parallaxOffset = -0.15f;
 
-    private Camera _cam;
     private Vector2 _startPos;
-    private Vector2 Travel => (Vector2)_cam.transform.position - _startPos;
-
-    private void Awake()
-    {
-        _cam = Camera.main;
-    }
+    private Vector2 Travel => (Vector2)CameraController.Instance.MainCam.transform.position - _startPos;
 
     private void Start()
     {

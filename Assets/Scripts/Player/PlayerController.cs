@@ -17,7 +17,6 @@ public class PlayerController : Singleton<PlayerController>
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
-    private Camera _mainCam;
     private bool _canDash = true;
     private float _startingMoveSpeed;
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
@@ -35,7 +34,6 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
-        _mainCam = Camera.main;
         _playerControls.Combat.Dash.performed += Dash;
     }
 
@@ -63,9 +61,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void AdjustPlayerFacingDirection()
     {
-        if (!_mainCam) return;
-
-        var mousePosition = _mainCam.ScreenToWorldPoint(Input.mousePosition);
+        var mousePosition = CameraController.Instance.MainCam.ScreenToWorldPoint(Input.mousePosition);
         _spriteRenderer.flipX = mousePosition.x < transform.position.x;
     }
 
