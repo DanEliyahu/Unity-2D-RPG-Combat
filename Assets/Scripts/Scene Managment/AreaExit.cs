@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,12 @@ public class AreaExit : MonoBehaviour
         if (!other.GetComponent<PlayerController>()) return;
         
         SceneManagment.Instance.SetTransitionName(_sceneTransitionName);
+        StartCoroutine(LoadSceneRoutine());
+    }
+
+    private IEnumerator LoadSceneRoutine()
+    {
+        yield return StartCoroutine(UIFade.Instance.FadeToBlack());
         SceneManager.LoadScene(_sceneToLoad);
     }
 }

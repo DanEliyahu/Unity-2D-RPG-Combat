@@ -3,20 +3,23 @@ using UnityEngine;
 
 public class CameraController : Singleton<CameraController>
 {
-    public Camera MainCam { get; private set; }
-    private CinemachineVirtualCamera _virtualCamera;
-
-    protected override void Awake()
+    public Camera MainCam
     {
-        base.Awake();
-        
-        MainCam = Camera.main;
+        get
+        {
+            if (!_mainCam)
+            {
+                _mainCam = Camera.main;
+            }
+            return _mainCam;
+        }
     }
+    private CinemachineVirtualCamera _virtualCamera;
+    private Camera _mainCam;
 
     public void SetPlayerCameraFollow()
     {
         _virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         _virtualCamera.Follow = PlayerController.Instance.transform;
-        MainCam = Camera.main;
     }
 }
