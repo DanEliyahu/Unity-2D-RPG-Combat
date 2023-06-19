@@ -12,7 +12,7 @@ public class Parallax : MonoBehaviour
         _startPos = transform.position;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         transform.position = _startPos + Travel * _parallaxOffset;
     }
