@@ -1,62 +1,32 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Sword : MonoBehaviour
+public class Sword : Weapon
 {
-    [SerializeField] private float _attackCooldown = 0.5f;
     [SerializeField] private GameObject _slashEffectPrefab;
     [SerializeField] private Transform _slashEffectParent;
     [SerializeField] private DamageSource _weaponCollider;
     
-    private PlayerControls _playerControls;
     private Animator _animator;
     private PlayerController _playerController;
     private ActiveWeapon _activeWeapon;
-    private bool _isSwingingUp, _attackButtonDown, _isAttacking;
+    private bool _isSwingingUp;
     private GameObject _slashEffect;
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
 
     private void Awake()
     {
-        _playerControls = new PlayerControls();
         _animator = GetComponent<Animator>();
         _playerController = GetComponentInParent<PlayerController>();
         _activeWeapon = GetComponentInParent<ActiveWeapon>();
-    }
-
-    private void OnEnable()
-    {
-        _playerControls.Enable();
-    }
-
-    private void Start()
-    {
-        _playerControls.Combat.Attack.started += StartAttacking;
-        _playerControls.Combat.Attack.canceled += StopAttacking;
-    }
-
-    private void StartAttacking(InputAction.CallbackContext context)
-    {
-        _attackButtonDown = true;
-    }
-
-    private void StopAttacking(InputAction.CallbackContext context)
-    {
-        _attackButtonDown = false;
     }
     
     private void Update()
     {
         MouseFollowWithOffset();
-        Attack();
     }
 
-    private void Attack()
+    public override void Attack()
     {
-        if (!_attackButtonDown || _isAttacking) return;
-        
-        _isAttacking = true;
         _animator.SetTrigger(AttackTrigger);
         _weaponCollider.gameObject.SetActive(true);
         _slashEffect = Instantiate(_slashEffectPrefab, _slashEffectParent);
@@ -66,13 +36,6 @@ public class Sword : MonoBehaviour
         }
 
         _isSwingingUp = !_isSwingingUp;
-        StartCoroutine(AttackCDRoutine());
-    }
-
-    private IEnumerator AttackCDRoutine()
-    {
-        yield return new WaitForSeconds(_attackCooldown);
-        _isAttacking = false;
     }
 
     public void DoneAttackingAnimEvent()
