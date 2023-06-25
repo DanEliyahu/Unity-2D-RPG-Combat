@@ -22,13 +22,19 @@ public class ActiveInventory : MonoBehaviour
 
     private void ToggleActiveSlot(InputAction.CallbackContext callbackContext)
     {
-        var activeSlotIndexNum = int.Parse(callbackContext.control.name) - 1;
+        var activeSlotIndex = int.Parse(callbackContext.control.name) - 1;
 
         foreach (Transform inventorySlot in transform)
         {
             inventorySlot.GetChild(0).gameObject.SetActive(false);
         }
 
-        transform.GetChild(activeSlotIndexNum).GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(activeSlotIndex).GetChild(0).gameObject.SetActive(true);
+        ChangeActiveWeapon(activeSlotIndex);
+    }
+
+    private void ChangeActiveWeapon(int index)
+    {
+        Debug.Log(transform.GetChild(index).GetComponent<InventorySlot>().WeaponInfo._weaponPrefab.name);
     }
 }
