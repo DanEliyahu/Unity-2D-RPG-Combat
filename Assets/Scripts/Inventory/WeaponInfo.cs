@@ -4,5 +4,4 @@ using UnityEngine;
 public class WeaponInfo : ScriptableObject
 {
     public GameObject _weaponPrefab;
-    public float _attackCooldown;
 }

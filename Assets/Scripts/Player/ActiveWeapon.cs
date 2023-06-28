@@ -2,15 +2,16 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ActiveWeapon : MonoBehaviour
+public class ActiveWeapon : Singleton<ActiveWeapon>
 {
-    [SerializeField] private Weapon _currentWeapon;
-    
+    private Weapon _currentWeapon;
     private PlayerControls _playerControls;
     private bool _attackButtonDown, _isAttacking;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _playerControls = new PlayerControls();
     }
 
@@ -38,6 +39,16 @@ public class ActiveWeapon : MonoBehaviour
     private void Update()
     {
         Attack();
+    }
+
+    public void SetWeapon(Weapon newWeapon)
+    {
+        if (_currentWeapon != null)
+        {
+            Destroy(_currentWeapon.gameObject);
+        }
+
+        _currentWeapon = newWeapon;
     }
     
     private void Attack()

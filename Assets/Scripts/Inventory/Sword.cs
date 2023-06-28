@@ -7,8 +7,6 @@ public class Sword : Weapon
     [SerializeField] private DamageSource _weaponCollider;
     
     private Animator _animator;
-    private PlayerController _playerController;
-    private ActiveWeapon _activeWeapon;
     private bool _isSwingingUp;
     private GameObject _slashEffect;
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
@@ -16,8 +14,6 @@ public class Sword : Weapon
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _playerController = GetComponentInParent<PlayerController>();
-        _activeWeapon = GetComponentInParent<ActiveWeapon>();
     }
     
     private void Update()
@@ -50,8 +46,8 @@ public class Sword : Weapon
         var mouseWorldPosition = CameraController.Instance.MainCam.ScreenToWorldPoint(mousePos);
         
         var zRotation = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-        var yRotation = mouseWorldPosition.x < _playerController.transform.position.x ? 180 : 0;
+        var yRotation = mouseWorldPosition.x < PlayerController.Instance.transform.position.x ? 180 : 0;
         
-        _activeWeapon.transform.rotation = Quaternion.Euler(0, yRotation, zRotation);
+        ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, yRotation, zRotation);
     }
 }

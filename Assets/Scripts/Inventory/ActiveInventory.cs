@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class ActiveInventory : MonoBehaviour
 {
     private PlayerControls _playerControls;
+    private WeaponInfo _weaponInfo;
 
     private void Awake()
     {
@@ -13,6 +14,7 @@ public class ActiveInventory : MonoBehaviour
     private void Start()
     {
         _playerControls.Inventory.ActiveWeapon.performed += ToggleActiveSlot;
+        ToggleActiveHighlight(0);
     }
 
     private void OnEnable()
@@ -24,17 +26,31 @@ public class ActiveInventory : MonoBehaviour
     {
         var activeSlotIndex = int.Parse(callbackContext.control.name) - 1;
 
+        ToggleActiveHighlight(activeSlotIndex);
+    }
+
+    private void ToggleActiveHighlight(int index)
+    {
+        _weaponInfo = transform.GetChild(index).GetComponent<InventorySlot>().WeaponInfo;
+        if (!_weaponInfo)
+        {
+            return;
+        }
+        
         foreach (Transform inventorySlot in transform)
         {
             inventorySlot.GetChild(0).gameObject.SetActive(false);
         }
 
-        transform.GetChild(activeSlotIndex).GetChild(0).gameObject.SetActive(true);
-        ChangeActiveWeapon(activeSlotIndex);
+        transform.GetChild(index).GetChild(0).gameObject.SetActive(true);
+        ChangeActiveWeapon(index);
     }
 
     private void ChangeActiveWeapon(int index)
     {
-        Debug.Log(transform.GetChild(index).GetComponent<InventorySlot>().WeaponInfo._weaponPrefab.name);
+        var weaponToSpawn = _weaponInfo._weaponPrefab;
+
+        var newWeapon = Instantiate(weaponToSpawn, ActiveWeapon.Instance.transform);
+        ActiveWeapon.Instance.SetWeapon(newWeapon.GetComponent<Weapon>());
     }
 }
