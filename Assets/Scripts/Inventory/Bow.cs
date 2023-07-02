@@ -6,4 +6,9 @@ public class Bow : Weapon
     {
         Debug.Log("Bow Attack");
     }
+
+    private void Update()
+    {
+        FaceMouse();
+    }
 }

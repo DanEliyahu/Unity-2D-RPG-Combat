@@ -38,16 +38,4 @@ public class Sword : Weapon
     {
         _weaponCollider.gameObject.SetActive(false);
     }
-
-
-    private void MouseFollowWithOffset()
-    {
-        var mousePos = Input.mousePosition;
-        var mouseWorldPosition = CameraController.Instance.MainCam.ScreenToWorldPoint(mousePos);
-        
-        var zRotation = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-        var yRotation = mouseWorldPosition.x < PlayerController.Instance.transform.position.x ? 180 : 0;
-        
-        ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, yRotation, zRotation);
-    }
 }

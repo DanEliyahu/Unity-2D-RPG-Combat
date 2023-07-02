@@ -43,10 +43,10 @@ public class ActiveInventory : MonoBehaviour
         }
 
         transform.GetChild(index).GetChild(0).gameObject.SetActive(true);
-        ChangeActiveWeapon(index);
+        ChangeActiveWeapon();
     }
 
-    private void ChangeActiveWeapon(int index)
+    private void ChangeActiveWeapon()
     {
         var weaponToSpawn = _weaponInfo._weaponPrefab;
 

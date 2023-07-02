@@ -6,4 +6,9 @@ public class Staff : Weapon
     {
         Debug.Log("Staff Attack");
     }
+
+    private void Update()
+    {
+        MouseFollowWithOffset();
+    }
 }
