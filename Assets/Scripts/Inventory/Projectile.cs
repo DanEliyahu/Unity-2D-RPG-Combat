@@ -3,8 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 22f;
-
-    // Update is called once per frame
+    
     void Update()
     {
         MoveProjectile();

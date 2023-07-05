@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4730234112987190879}
   - component: {fileID: 4040309058769810382}
   - component: {fileID: -5328007336334463270}
+  - component: {fileID: 6145278574869625171}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 7843245300707199901}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6736628735214152009
 SpriteRenderer:
@@ -149,7 +150,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!210 &4040309058769810382
 SortingGroup:
@@ -176,6 +177,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 22
+--- !u!114 &6145278574869625171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6292515299615902558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: affbb43044067e42b89817205bb36c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageAmount: 1
+  _onHitVFX: {fileID: 291801589226389940, guid: 440c8ec99dfeb9867900bc4efd063187, type: 3}
 --- !u!1 &8667426410004302624
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +244,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 637c20ed5817e4401942dad6e31700d5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
