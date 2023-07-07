@@ -94,6 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5752646632316755477}
   - component: {fileID: 832292488136899183}
+  - component: {fileID: 8895274086020253347}
+  - component: {fileID: 2342232994460490749}
   - component: {fileID: 5893720540662428742}
   - component: {fileID: 3510406683522762037}
   - component: {fileID: 1226094935373101557}
@@ -101,6 +103,7 @@ GameObject:
   - component: {fileID: 6992717141637933580}
   - component: {fileID: 4717618567667567634}
   - component: {fileID: 8723680639712725620}
+  - component: {fileID: 674732118065964619}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -176,6 +179,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &8895274086020253347
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735450314802072912}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+--- !u!95 &2342232994460490749
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735450314802072912}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df486680c56c60a5da3cbd780955abda, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &5893720540662428742
 Rigidbody2D:
   serializedVersion: 4
@@ -250,6 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea4bf45c3209ac92951f869de17e97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _roamChangeDirTime: 2
 --- !u!114 &9222679829474902302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingHealth: 3
   _deathVFX: {fileID: 8159552998685074086, guid: c21cff6357b49d46492d48811cdc5823, type: 3}
+  _knockBackThrust: 15
 --- !u!114 &4717618567667567634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,3 +342,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whiteFlashMat: {fileID: 2100000, guid: 310ce918122885a0e814945ef1731caa, type: 2}
   _restoreDefaultMatTime: 0.2
+--- !u!114 &674732118065964619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735450314802072912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9016862646dc0459ce1bb915fa2b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

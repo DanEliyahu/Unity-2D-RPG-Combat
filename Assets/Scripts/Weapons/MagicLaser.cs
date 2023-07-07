@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class MagicLaser : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private CapsuleCollider2D _capsuleCollider;
     private SpriteFade _spriteFade;
+
+    private bool _isGrowing = true;
 
     private void Awake()
     {
@@ -22,7 +25,15 @@ public class MagicLaser : MonoBehaviour
         LaserFaceMouse();
         StartCoroutine(IncreaseLaserLengthRoutine());
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Indestructible") && !other.isTrigger)
+        {
+            _isGrowing = false;
+        }
+    }
+
     private void LaserFaceMouse()
     {
         var mousePosition = CameraController.Instance.MainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -46,7 +57,7 @@ public class MagicLaser : MonoBehaviour
         float targetColliderXOffset = _laserRange * 0.5f;
         var timePassed = 0f;
         
-        while (_spriteRenderer.size.x < _laserRange)
+        while (_spriteRenderer.size.x < _laserRange && _isGrowing)
         {
             timePassed += Time.deltaTime;
             float linearT = timePassed / _laserGrowTime;
