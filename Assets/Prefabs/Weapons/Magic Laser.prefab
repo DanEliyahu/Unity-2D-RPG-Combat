@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4286948685093378619}
   - component: {fileID: 2247115487906276671}
   - component: {fileID: 4062063299547659033}
+  - component: {fileID: -5911892240921831135}
   m_Layer: 0
   m_Name: Magic Laser
   m_TagString: Untagged
@@ -29,12 +30,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5972753659280987825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.691, y: -0.808, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1060194360775978554
 SpriteRenderer:
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!70 &2282271517507181149
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -120,7 +121,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.02}
+  m_Offset: {x: 0.5, y: 0.02}
   m_Size: {x: 0.8, y: 0.45}
   m_Direction: 1
 --- !u!50 &4286948685093378619
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affbb43044067e42b89817205bb36c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageAmount: 1
+  _damageAmount: 3
   _onHitVFX: {fileID: 0}
 --- !u!114 &4062063299547659033
 MonoBehaviour:
@@ -176,3 +177,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309b253c5419af228a681647a35086d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _laserRange: 8
+  _laserGrowTime: 0.3
+--- !u!114 &-5911892240921831135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5972753659280987825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1171b9bc9c750eab4a8c37f91db8b0fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeTime: 0.4
