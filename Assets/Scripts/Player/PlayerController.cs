@@ -13,10 +13,12 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private TrailRenderer _trailRenderer;
     
     private PlayerControls _playerControls;
-    private Vector2 _movement;
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    private Knockback _knockback;
+    
+    private Vector2 _movement;
     private bool _canDash = true;
     private float _startingMoveSpeed;
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
@@ -29,6 +31,7 @@ public class PlayerController : Singleton<PlayerController>
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _knockback = GetComponent<Knockback>();
         _startingMoveSpeed = _moveSpeed;
     }
 
@@ -67,6 +70,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Move()
     {
+        if (_knockback.IsKnockedBack) return;
+        
         _rb.MovePosition(_rb.position + _movement * (_moveSpeed * Time.fixedDeltaTime));
     }
 
