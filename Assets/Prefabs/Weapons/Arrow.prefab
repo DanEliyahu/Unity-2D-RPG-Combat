@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 22
+  _projectileRange: 10
 --- !u!114 &6145278574869625171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affbb43044067e42b89817205bb36c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isEnemySource: 0
   _damageAmount: 1
   _onHitVFX: {fileID: 291801589226389940, guid: 440c8ec99dfeb9867900bc4efd063187, type: 3}
 --- !u!1 &8667426410004302624

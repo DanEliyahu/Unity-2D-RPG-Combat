@@ -21,18 +21,18 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (!_canTakeDamage) return;
-        
         var enemy = other.gameObject.GetComponent<EnemyAI>();
         if (!enemy) return;
         
-        TakeDamage(1);
-        _knockback.GetKnockedBack(other.transform, _knockBackThrust);
-        StartCoroutine(_flash.FlashRoutine());
+        TakeDamage(1, other.transform);
     }
 
-    private void TakeDamage(int damageAmount)
+    public void TakeDamage(int damageAmount, Transform hitTransform)
     {
+        if (!_canTakeDamage) return;
+
+        _knockback.GetKnockedBack(hitTransform, _knockBackThrust);
+        StartCoroutine(_flash.FlashRoutine());
         _canTakeDamage = false;
         _currentHealth -= damageAmount;
         StartCoroutine(DamageRecoveryRoutine());
