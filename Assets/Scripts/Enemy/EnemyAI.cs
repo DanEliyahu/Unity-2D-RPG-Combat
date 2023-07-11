@@ -1,18 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private float _roamChangeDirTime = 2f;
+    [SerializeField] private float _attackRange = 5f;
+    [SerializeField] private BaseEnemy _enemyType;
+    [SerializeField] private float _attackCooldown = 1f;
+    [SerializeField] private bool _stopMovingWhileAttacking;
+
+    private EnemyPathfinding _enemyPathfinding;
     
     private enum State
     {
-        Roaming
+        Roaming,
+        Attacking
     }
 
     private State _state;
-    private EnemyPathfinding _enemyPathfinding;
+    private Vector2 _roamDirection;
+    private float _timeRoaming;
+    private bool _canAttack = true;
 
     private void Awake()
     {
@@ -22,16 +30,69 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(RoamingRoutine());
+        _roamDirection = GetRoamingDirection();
+        _enemyPathfinding.SetMovementDirection(_roamDirection);
     }
 
-    private IEnumerator RoamingRoutine()
+    private void Update()
     {
-        while (_state == State.Roaming)
+        MovementStateControl();
+    }
+
+    private void MovementStateControl()
+    {
+        switch (_state)
         {
-            _enemyPathfinding.SetMovementDirection(GetRoamingDirection());
-            yield return new WaitForSeconds(_roamChangeDirTime);
+            case State.Roaming:
+                Roam();
+                break;
+            case State.Attacking:
+                Attack();
+                break;
         }
+    }
+
+    private void Roam()
+    {
+        _timeRoaming += Time.deltaTime;
+
+        if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < _attackRange)
+        {
+            _state = State.Attacking;
+            return;
+        }
+
+        if (_timeRoaming > _roamChangeDirTime)
+        {
+            _enemyPathfinding.SetMovementDirection(_roamDirection);
+            _timeRoaming = 0;
+            _roamDirection = GetRoamingDirection();
+        }
+    }
+
+    private void Attack()
+    {
+        if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > _attackRange)
+        {
+            _state = State.Roaming;
+            return;
+        }
+        
+        if (!_canAttack) return;
+        
+        _enemyType.Attack();
+        if (_stopMovingWhileAttacking)
+        {
+            _enemyPathfinding.StopMoving();
+        }
+        _canAttack = false;
+        StartCoroutine(AttackCooldownRoutine());
+    }
+
+    private IEnumerator AttackCooldownRoutine()
+    {
+        yield return new WaitForSeconds(_attackCooldown);
+        _canAttack = true;
     }
 
     private Vector2 GetRoamingDirection()
