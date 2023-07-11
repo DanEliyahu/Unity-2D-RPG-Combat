@@ -6,7 +6,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float _roamChangeDirTime = 2f;
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private BaseEnemy _enemyType;
-    [SerializeField] private float _attackCooldown = 1f;
     [SerializeField] private bool _stopMovingWhileAttacking;
 
     private EnemyPathfinding _enemyPathfinding;
@@ -20,7 +19,6 @@ public class EnemyAI : MonoBehaviour
     private State _state;
     private Vector2 _roamDirection;
     private float _timeRoaming;
-    private bool _canAttack = true;
 
     private void Awake()
     {
@@ -78,21 +76,13 @@ public class EnemyAI : MonoBehaviour
             return;
         }
         
-        if (!_canAttack) return;
+        if (!_enemyType.CanAttack) return;
         
         _enemyType.Attack();
         if (_stopMovingWhileAttacking)
         {
             _enemyPathfinding.StopMoving();
         }
-        _canAttack = false;
-        StartCoroutine(AttackCooldownRoutine());
-    }
-
-    private IEnumerator AttackCooldownRoutine()
-    {
-        yield return new WaitForSeconds(_attackCooldown);
-        _canAttack = true;
     }
 
     private Vector2 GetRoamingDirection()
