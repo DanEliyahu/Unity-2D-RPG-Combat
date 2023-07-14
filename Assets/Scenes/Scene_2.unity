@@ -22586,7 +22586,7 @@ PrefabInstance:
       objectReference: {fileID: 550758947}
     - target: {fileID: 6201793268059590323, guid: b96c5a840f2f2b744b4354fd990ba3b7, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
