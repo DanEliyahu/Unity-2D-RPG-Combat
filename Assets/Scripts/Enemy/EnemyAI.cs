@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private float _roamChangeDirTime = 2f;
-    [SerializeField] private float _attackRange = 5f;
+    [SerializeField] private float _attackRange = 0f;
     [SerializeField] private BaseEnemy _enemyType;
     [SerializeField] private bool _stopMovingWhileAttacking;
 
