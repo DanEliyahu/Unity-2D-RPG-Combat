@@ -5,6 +5,20 @@ public class DamageSource : MonoBehaviour
     [SerializeField] private bool _isEnemySource;
     [SerializeField] private int _damageAmount = 1;
     [SerializeField] private GameObject _onHitVFX;
+    [SerializeField] private float _colliderActiveTime = 0f;
+
+    private void Start()
+    {
+        if (_colliderActiveTime > 0)
+        {
+            Invoke(nameof(DisableCollider), _colliderActiveTime);
+        }
+    }
+    
+    private void DisableCollider()
+    {
+        GetComponent<Collider2D>().enabled = false;
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {

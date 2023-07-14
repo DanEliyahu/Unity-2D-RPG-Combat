@@ -193,6 +193,7 @@ MonoBehaviour:
   _isEnemySource: 0
   _damageAmount: 1
   _onHitVFX: {fileID: 291801589226389940, guid: 440c8ec99dfeb9867900bc4efd063187, type: 3}
+  _colliderActiveTime: 0
 --- !u!1 &8667426410004302624
 GameObject:
   m_ObjectHideFlags: 0
