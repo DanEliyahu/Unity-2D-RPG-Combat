@@ -10,6 +10,14 @@ public class Shooter : BaseEnemy
     [SerializeField] private float _startingDistance = 0.1f;
     [SerializeField] private float _timeBetweenShotsInBurst;
 
+    private void OnValidate()
+    {
+        if (_angleSpread == 0)
+        {
+            _bulletsPerBurst = 1;
+        }
+    }
+
     public override void Attack()
     {
         CanAttack = false;
